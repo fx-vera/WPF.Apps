@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using tucodev.WPF.Core.Interfaces.Interfaces;
+using Tucodev.Core.Interfaces;
 
 namespace tucodev.WPF.Core.Mainframe
 {

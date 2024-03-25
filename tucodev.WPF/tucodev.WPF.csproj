@@ -15,4 +15,8 @@
     <ProjectReference Include="..\tucodev.WPF.Core\tucodev.WPF.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Mainframe\" />
+  </ItemGroup>
+
 </Project>

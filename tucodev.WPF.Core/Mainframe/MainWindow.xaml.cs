@@ -1,6 +1,6 @@
 ﻿//using System.ComponentModel.Composition;
 using System.Windows;
-using tucodev.WPF.Core.Interfaces.Interfaces;
+using Tucodev.Core.Interfaces;
 
 namespace tucodev.WPF.Core.Mainframe
 {
@@ -19,6 +19,5 @@ namespace tucodev.WPF.Core.Mainframe
         {
             this.DataContext = viewModel;
         }
-
     }
 }

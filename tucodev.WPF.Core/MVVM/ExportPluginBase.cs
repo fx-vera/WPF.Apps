@@ -1,7 +1,5 @@
-﻿using tucodev.WPF.Core.Interfaces.Interfaces;
-using tucodev.WPF.Core.Interfaces.Managers;
-using tucodev.WPF.Core.Interfaces.MVVM;
-using tucodev.WPF.Core.Utils;
+﻿using tucodev.WPF.Core.Utils;
+using Tucodev.Core.MVVM;
 
 namespace tucodev.WPF.Core.MVVM
 {
@@ -30,6 +28,7 @@ namespace tucodev.WPF.Core.MVVM
         /// <param name="showInMainframe"></param>
         private void OnCommand(PluginItemBase menuItem, ViewModelBase page)
         {
+            // TODO IOC
             //page.Id = menuItem.Id;
             //var pm = IoC.Get<IPageManager>();
             //pm.SetPageInMainWindow(page);

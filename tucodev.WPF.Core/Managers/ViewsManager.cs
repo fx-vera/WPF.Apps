@@ -3,11 +3,9 @@ using System.Text;
 using System.Windows;
 using System.Windows.Markup;
 using System.Xml;
-using tucodev.WPF.Core.Interfaces.Interfaces;
-using tucodev.WPF.Core.Interfaces.Managers;
 using tucodev.WPF.Core.Interfaces.MVVM;
+using Tucodev.Core.Interfaces;
 using Application = System.Windows.Application;
-using UserControl = System.Windows.Controls.UserControl;
 
 namespace tucodev.WPF.Core.Managers
 {

@@ -1,10 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 //using System.Composition;
-using tucodev.WPF.Core.Interfaces.Interfaces;
-using tucodev.WPF.Core.Interfaces.Managers;
-using tucodev.WPF.Core.Interfaces.Models;
 using tucodev.WPF.Core.Interfaces.MVVM;
+using Tucodev.Core.Interfaces;
+using Tucodev.Core.Models;
 
 namespace tucodev.WPF.Core.Mainframe
 {

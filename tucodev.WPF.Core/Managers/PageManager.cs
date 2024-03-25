@@ -1,10 +1,9 @@
-﻿using tucodev.WPF.Core.Interfaces.Interfaces;
-using tucodev.WPF.Core.Mainframe;
+﻿using Tucodev.Core.Interfaces;
 
 namespace tucodev.WPF.Core.Interfaces.Managers
 {
     //[Export(typeof(IPageManager))]
-    public abstract class PageManager : IPageManager
+    public abstract class PageManager : Tucodev.Core.Managers.PageManager
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PageManager"/> class.
@@ -16,7 +15,7 @@ namespace tucodev.WPF.Core.Interfaces.Managers
 
         #region IPageManager functions
 
-        public IWindowViewModel SetPageInMainWindow(IViewModel newPage)
+        public override IWindowViewModel SetPageInMainWindow(IViewModel newPage)
         {
             if (newPage == null)
             {
@@ -32,9 +31,9 @@ namespace tucodev.WPF.Core.Interfaces.Managers
 
         #endregion
 
-        public IWindowViewModel CreateNewWindow(IViewModel newPage)
-        {
-            return new GenericViewModel(newPage);
-        }
+        //public IWindowViewModel CreateNewWindow(IViewModel newPage)
+        //{
+        //    return new GenericViewModel(newPage);
+        //}
     }
 }

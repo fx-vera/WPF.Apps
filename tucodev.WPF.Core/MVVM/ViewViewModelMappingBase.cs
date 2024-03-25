@@ -1,6 +1,6 @@
 ﻿//using System.Composition;
-using tucodev.WPF.Core.Interfaces.Interfaces;
-using tucodev.WPF.Core.Interfaces.Models;
+using Tucodev.Core.Interfaces;
+using Tucodev.Core.Models;
 
 namespace tucodev.WPF.Core.Interfaces.MVVM
 {

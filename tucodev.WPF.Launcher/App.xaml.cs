@@ -1,14 +1,16 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Windows;
+﻿using System.Drawing;
+using tucodev.WPF.Core;
 
 namespace tucodev.WPF.Launcher
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App : BootstrapperBase
     {
+        public override List<string> DllAllowed { get { return new List<string>() { "Yolo.Soft" }; } }
+        protected override bool IsNotifiyIconMode { get { return false; } }
+        protected override Icon NotifyIconIcon { get { return Launcher.Properties.Resources.acaptain; } }
+        protected override string NotifyIconTitle { get { return "Yolo Enjoyment"; } }
     }
-
 }

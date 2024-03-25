@@ -1,5 +1,5 @@
 ﻿using System.Windows.Input;
-using tucodev.WPF.Core.Interfaces.Interfaces;
+using Tucodev.Core.Interfaces;
 
 namespace tucodev.WPF.Core.Interfaces.MVVM
 {

@@ -1,31 +1,27 @@
-﻿using System.Configuration;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System.IO;
 using System.Reflection;
-using System.Windows;
-using tucodev.WPF.Core.Interfaces.Interfaces;
-using tucodev.WPF.Core.Interfaces.Managers;
-using tucodev.WPF.Core.Interfaces.Models;
-using MessageBox = System.Windows.MessageBox;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
 using System.Text;
-using tucodev.WPF.Core.Mainframe;
+using System.Windows;
+using Tucodev.Core.Interfaces;
+using Tucodev.Core.Models;
+using MessageBox = System.Windows.MessageBox;
 
 namespace tucodev.WPF.Core
 {
-
     /// <summary>
     /// Base class to manage the basic application operations and the main window.
     /// This class can be extended depending on requirements
     /// </summary>
-    public abstract class BootstrapperWPF : System.Windows.Application, IBootstrapperBase
+    public abstract class BootstrapperBase : System.Windows.Application, IBootstrapperBase
     {
         NotifyIcon notifyIcon;
 
         /// <summary>
         /// Contructor called by Application.
         /// </summary>
-        public BootstrapperWPF()
+        public BootstrapperBase()
         {
             UnhandledExceptionHandler();
         }
@@ -36,22 +32,24 @@ namespace tucodev.WPF.Core
         protected virtual string NotifyIconTitle { get; }
         protected virtual Icon NotifyIconIcon { get; }
 
-        public IServiceProvider ServiceProvider { get; private set; }
-        public IConfiguration Configuration { get; private set; }
+        //public IServiceProvider ServiceProvider { get; private set; }
+        IConfiguration Configuration;
+
+        IMainWindowViewModel mainViewModel;
 
         public void OnStartup()
         {
             ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
             //Load application modules
-            List<Assembly> assembliesToCompose = GetAssembliesForIoC();
+            //List<Assembly> assembliesToCompose = GetAssembliesForIoC();
 
-            assembliesToCompose.Add(GetType().Assembly);
+            //assembliesToCompose.Add(GetType().Assembly);
 
-            Dictionary<Type, object> knownInstances = new Dictionary<Type, object>
-            {
-                { GetType(), this }
-            };
+            //Dictionary<Type, object> knownInstances = new Dictionary<Type, object>
+            //{
+            //    { GetType(), this }
+            //};
 
             string loadError = string.Empty;
             bool modulesLoadedOk = false;
@@ -60,14 +58,15 @@ namespace tucodev.WPF.Core
             {
                 var builder = new ConfigurationBuilder()
                .SetBasePath(Directory.GetCurrentDirectory());
-               //.AddJsonFile("appsettings.json", false, true);
+                //.AddJsonFile("appsettings.json", false, true);
 
                 Configuration = builder.Build();
 
                 var serviceCollection = new ServiceCollection();
                 ConfigureServices(serviceCollection);
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                ServiceProvider = serviceCollection.BuildServiceProvider();
+                DI.Init(serviceCollection.BuildServiceProvider());
+
                 //MEFIoCManager.Instance.LoadModules(knownInstances, assembliesToCompose);
                 modulesLoadedOk = true;
             }
@@ -78,7 +77,7 @@ namespace tucodev.WPF.Core
 
             if (!modulesLoadedOk)
             {
-                System.Windows.MessageBox.Show(loadError, "Error Loading Application Modules in Applivery.MarvelComics.Desktop.");
+                System.Windows.MessageBox.Show(loadError, "Error Loading Application Modules.");
                 Current.Shutdown();
                 return;
             }
@@ -112,8 +111,8 @@ namespace tucodev.WPF.Core
         private void ConfigureServices(ServiceCollection serviceCollection)
         {
             //serviceCollection.RegisterInfrastructureDependencies(Configuration);
-            //serviceCollection.RegisterLogicDependencies();
-            serviceCollection.AddTransient(typeof(MainWindow));
+            serviceCollection.RegisterLogicDependencies();
+            //serviceCollection.AddTransient(typeof(IMainWindow));
         }
 
         public void UnhandledExceptionHandler()
@@ -135,20 +134,16 @@ namespace tucodev.WPF.Core
         protected virtual Window CreateMainWindow()
         {
             Window mainWindow = null;
-         /*   IMainWindowViewModel mainViewModel = IoC.Get<IMainWindowViewModel>();
-            if (mainViewModel == null)
-            {
-                MessageBox.Show("Could not load main window component. Closing down.", "Error");
-                return mainWindow;
-            }
-            IMainWindow mainw = IoC.Get<IMainWindow>();
+            IMainWindowViewModel mainViewModel = DI.ServiceProvider.GetRequiredService<IMainWindowViewModel>();
+
+            var mainw = DI.ServiceProvider.GetRequiredService<IMainWindow>();
             if (mainw is Window)
             {
                 mainw.SetDataContext(mainViewModel);
                 mainWindow = (Window)mainw;
                 mainWindow.Dispatcher.BeginInvoke(new Action(() => mainWindow.SetCurrentValue(Window.TopmostProperty, false)), System.Windows.Threading.DispatcherPriority.ApplicationIdle, null);
             }
-            */
+
             return mainWindow;
         }
 
@@ -213,9 +208,9 @@ namespace tucodev.WPF.Core
 
         private void LoadPlugins()
         {
-           /* IMainWindowViewModel mainViewModel = IoC.Get<IMainWindowViewModel>();
+            IMainWindowViewModel mainViewModel = DI.ServiceProvider.GetRequiredService<IMainWindowViewModel>();
             LoadPluginEventArgs args;
-            var pluginItems = IoC.GetAll<IPluginItem>();
+            var pluginItems = DI.ServiceProvider.GetServices<IPluginItem>();
 
             foreach (var item in pluginItems)
             {
@@ -226,7 +221,7 @@ namespace tucodev.WPF.Core
                     IsCommand = true
                 };
                 mainViewModel.SetPlugins(args);
-            }*/
+            }
         }
 
         #endregion Private
