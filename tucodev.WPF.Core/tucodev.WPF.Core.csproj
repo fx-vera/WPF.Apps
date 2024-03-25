@@ -30,7 +30,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\tucodev.Core\tucodev.Core.csproj" />
+    <ProjectReference Include="..\..\Core\tucodev.Core\tucodev.Core.csproj">
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>

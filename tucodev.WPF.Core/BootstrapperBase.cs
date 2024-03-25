@@ -3,6 +3,8 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Windows;
+using tucodev.Core.Mainframe;
+using tucodev.WPF.Core.Mainframe;
 using Tucodev.Core.Interfaces;
 using Tucodev.Core.Models;
 using MessageBox = System.Windows.MessageBox;
@@ -46,7 +48,9 @@ namespace tucodev.WPF.Core
             try
             {
                 var serviceCollection = new ServiceCollection();
-                serviceCollection.RegisterDependencies(assembliesToCompose);
+                RegisterMainFrame(serviceCollection);
+                RegisterMainWindow(serviceCollection);
+                RegisterDependencies(serviceCollection, assembliesToCompose);
                 DI.PublicServices(serviceCollection);
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
@@ -184,7 +188,7 @@ namespace tucodev.WPF.Core
         {
             LoadPluginEventArgs args;
             var pluginItems = DI.ServiceProvider.GetServices<IPluginItem>();
-            
+
             foreach (var item in pluginItems)
             {
                 args = new LoadPluginEventArgs
@@ -194,6 +198,58 @@ namespace tucodev.WPF.Core
                     IsCommand = true
                 };
                 mainViewModel.SetPlugins(args);
+            }
+        }
+
+        public virtual void RegisterDependencies(IServiceCollection services, IEnumerable<Assembly> assembliesToLoad)
+        {
+            LoadModules(assembliesToLoad, services);
+        }
+
+        public virtual void RegisterMainFrame(IServiceCollection services)
+        {
+            services.AddScoped<IMainWindow, MainFrame>();
+        }
+
+        public virtual void RegisterMainWindow(IServiceCollection services)
+        {
+            services.AddScoped<IMainWindowViewModel, MainWindowViewModel>();
+        }
+
+        /// <summary>
+        /// Tries to do the MEF composition of all assemblies and preloaded objects.
+        /// Throws a ModuleLoadErrorException if the composition fails
+        /// </summary>
+        /// <param name="preloadedObjects"></param>
+        /// <param name="assembliesToLoad"></param>
+        private void LoadModules(IEnumerable<Assembly> assembliesToLoad, IServiceCollection services)
+        {
+            LoadType(assembliesToLoad, typeof(IPluginItem), services);
+            LoadType(assembliesToLoad, typeof(IPageManager), services);
+            LoadType(assembliesToLoad, typeof(IViewsManager), services);
+        }
+
+        private void LoadType(IEnumerable<Assembly> distinctAssemblies, Type myType, IServiceCollection services)
+        {
+            foreach (var assembly in distinctAssemblies)
+            {
+                var typeInstances = assembly
+                .GetTypes()
+                .Where(x => x.IsAssignableTo(myType))
+                .Where(x => !x.IsInterface)
+                .Where(x => !x.IsAbstract)
+                .ToArray();
+
+                if (!typeInstances.Any())
+                {
+                    continue;
+                }
+
+                foreach (var typeInstance in typeInstances)
+                {
+                    // this is the wireup that allows you to DI your instances
+                    services.AddScoped(myType, typeInstance);
+                }
             }
         }
 
