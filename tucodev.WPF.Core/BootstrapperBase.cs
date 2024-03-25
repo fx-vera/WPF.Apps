@@ -33,7 +33,6 @@ namespace tucodev.WPF.Core
         protected virtual Icon NotifyIconIcon { get; }
 
         //public IServiceProvider ServiceProvider { get; private set; }
-        IConfiguration Configuration;
 
         IMainWindowViewModel mainViewModel;
 
@@ -42,32 +41,18 @@ namespace tucodev.WPF.Core
             ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
             //Load application modules
-            //List<Assembly> assembliesToCompose = GetAssembliesForIoC();
-
-            //assembliesToCompose.Add(GetType().Assembly);
-
-            //Dictionary<Type, object> knownInstances = new Dictionary<Type, object>
-            //{
-            //    { GetType(), this }
-            //};
+            IEnumerable<Assembly> assembliesToCompose = GetAssembliesForIoC().Distinct(new AssemblyNameComparer());
 
             string loadError = string.Empty;
             bool modulesLoadedOk = false;
 
             try
             {
-                var builder = new ConfigurationBuilder()
-               .SetBasePath(Directory.GetCurrentDirectory());
-                //.AddJsonFile("appsettings.json", false, true);
-
-                Configuration = builder.Build();
-
                 var serviceCollection = new ServiceCollection();
-                ConfigureServices(serviceCollection);
+                serviceCollection.RegisterDependencies(assembliesToCompose);
+                DI.PublicServices(serviceCollection);
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                DI.Init(serviceCollection.BuildServiceProvider());
 
-                //MEFIoCManager.Instance.LoadModules(knownInstances, assembliesToCompose);
                 modulesLoadedOk = true;
             }
             catch (Exception ex)
@@ -106,13 +91,6 @@ namespace tucodev.WPF.Core
                 notifyIcon.ContextMenuStrip.Items.Add("Open", null, Open_Click);
                 notifyIcon.ContextMenuStrip.Items.Add("Close", null, Close_Click);
             }
-        }
-
-        private void ConfigureServices(ServiceCollection serviceCollection)
-        {
-            //serviceCollection.RegisterInfrastructureDependencies(Configuration);
-            serviceCollection.RegisterLogicDependencies();
-            //serviceCollection.AddTransient(typeof(IMainWindow));
         }
 
         public void UnhandledExceptionHandler()
@@ -182,8 +160,7 @@ namespace tucodev.WPF.Core
 
         private void LoadApplicationViews()
         {
-            //IoC.Get<IViewsManager>()?.LoadAvailableViews();
-            //MEFIoCManager.Instance.LoadModules(new Dictionary<Type, object>(), GetAssembliesForIoC());
+            DI.ServiceProvider.GetService<IViewsManager>()?.LoadAvailableViews();
         }
 
         private void Open_Click(object sender, EventArgs e)
@@ -211,7 +188,10 @@ namespace tucodev.WPF.Core
             IMainWindowViewModel mainViewModel = DI.ServiceProvider.GetRequiredService<IMainWindowViewModel>();
             LoadPluginEventArgs args;
             var pluginItems = DI.ServiceProvider.GetServices<IPluginItem>();
+            //var serviceProvider = DI.ServiceProvider.GetRequiredService<IServiceProvider>();
+            //var plug = serviceProvider.GetService<IPluginItem>();
 
+            //serviceProvider.
             foreach (var item in pluginItems)
             {
                 args = new LoadPluginEventArgs
@@ -225,5 +205,18 @@ namespace tucodev.WPF.Core
         }
 
         #endregion Private
+    }
+
+    class AssemblyNameComparer : IEqualityComparer<Assembly>
+    {
+        public bool Equals(Assembly x, Assembly y)
+        {
+            return x == y || x.GetName().Name == y.GetName().Name;
+        }
+
+        public int GetHashCode(Assembly obj)
+        {
+            return obj.GetHashCode();
+        }
     }
 }

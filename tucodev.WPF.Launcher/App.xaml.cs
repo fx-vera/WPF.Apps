@@ -8,9 +8,9 @@ namespace tucodev.WPF.Launcher
     /// </summary>
     public partial class App : BootstrapperBase
     {
-        public override List<string> DllAllowed { get { return new List<string>() { "Yolo.Soft" }; } }
+        public override List<string> DllAllowed { get { return new List<string>() { "tucodev" }; } }
         protected override bool IsNotifiyIconMode { get { return false; } }
-        protected override Icon NotifyIconIcon { get { return Launcher.Properties.Resources.acaptain; } }
+        //protected override Icon NotifyIconIcon { get { return Launcher.Properties.Resources.acaptain; } }
         protected override string NotifyIconTitle { get { return "Yolo Enjoyment"; } }
     }
 }
