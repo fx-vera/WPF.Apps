@@ -1,16 +1,14 @@
-﻿//using System.ComponentModel.Composition;
-using System.Windows;
+﻿using System.Windows;
 using Tucodev.Core.Interfaces;
 
 namespace tucodev.WPF.Core.Mainframe
 {
     /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
+    /// Lógica de interacción para MainFrame.xaml
     /// </summary>
-    //[Export(typeof(IMainWindow))]
-    public partial class MainWindow : Window, IMainWindow
+    public partial class MainFrame : Window, IMainWindow
     {
-        public MainWindow()
+        public MainFrame()
         {
             InitializeComponent();
         }

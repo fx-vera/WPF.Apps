@@ -10,14 +10,16 @@
 
   <ItemGroup>
     <Compile Remove="Mainframe\GenericViewModel.cs" />
+    <Compile Remove="Mainframe\MainWindow.xaml.cs" />
     <Compile Remove="Mainframe\MainWindowViewModel.cs" />
     <Compile Remove="Managers\IoC.cs" />
     <Compile Remove="Managers\MEFIoCManager.cs" />
-    <Compile Remove="Models\LoadPluginEventArgs.cs" />
-    <Compile Remove="Models\ModuleLoadedEventArgs.cs" />
-    <Compile Remove="Models\VVMMappingModel.cs" />
     <Compile Remove="MVVM\PluginItemBase.cs" />
     <Compile Remove="MVVM\ViewModelBase.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Mainframe\MainWindow.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,10 +27,6 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
     <PackageReference Include="System.ComponentModel.Composition" Version="8.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\" />
   </ItemGroup>
 
   <ItemGroup>

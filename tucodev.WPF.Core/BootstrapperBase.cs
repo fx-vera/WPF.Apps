@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -31,8 +30,6 @@ namespace tucodev.WPF.Core
         protected abstract bool IsNotifiyIconMode { get; }
         protected virtual string NotifyIconTitle { get; }
         protected virtual Icon NotifyIconIcon { get; }
-
-        //public IServiceProvider ServiceProvider { get; private set; }
 
         IMainWindowViewModel mainViewModel;
 
@@ -112,7 +109,7 @@ namespace tucodev.WPF.Core
         protected virtual Window CreateMainWindow()
         {
             Window mainWindow = null;
-            IMainWindowViewModel mainViewModel = DI.ServiceProvider.GetRequiredService<IMainWindowViewModel>();
+            mainViewModel = DI.ServiceProvider.GetRequiredService<IMainWindowViewModel>();
 
             var mainw = DI.ServiceProvider.GetRequiredService<IMainWindow>();
             if (mainw is Window)
@@ -185,13 +182,9 @@ namespace tucodev.WPF.Core
 
         private void LoadPlugins()
         {
-            IMainWindowViewModel mainViewModel = DI.ServiceProvider.GetRequiredService<IMainWindowViewModel>();
             LoadPluginEventArgs args;
             var pluginItems = DI.ServiceProvider.GetServices<IPluginItem>();
-            //var serviceProvider = DI.ServiceProvider.GetRequiredService<IServiceProvider>();
-            //var plug = serviceProvider.GetService<IPluginItem>();
-
-            //serviceProvider.
+            
             foreach (var item in pluginItems)
             {
                 args = new LoadPluginEventArgs

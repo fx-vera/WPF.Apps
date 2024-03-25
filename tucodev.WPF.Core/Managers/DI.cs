@@ -25,7 +25,7 @@ namespace tucodev.WPF.Core
 
         public static void RegisterDependencies(this IServiceCollection services, IEnumerable<Assembly> assembliesToLoad)
         {
-            services.AddScoped<IMainWindow, MainWindow>();
+            services.AddScoped<IMainWindow, MainFrame>();
             services.AddScoped<IMainWindowViewModel, MainWindowViewModel>();
             //services.AddScoped
             //services.AddSingleton<IPluginItem>(p=>p.GetRequiredService<IPluginItem>());

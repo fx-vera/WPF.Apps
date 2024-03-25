@@ -9,7 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\tucodev.WPF\tucodev.WPF.csproj" />
+    <ProjectReference Include="..\..\Core\tucodev.Core\tucodev.Core.csproj" />
+    <ProjectReference Include="..\tucodev.WPF.Core\tucodev.WPF.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
