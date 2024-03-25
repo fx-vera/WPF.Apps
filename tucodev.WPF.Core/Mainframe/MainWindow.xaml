@@ -1,0 +1,17 @@
+﻿<Window x:Class="tucodev.WPF.Core.Mainframe.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="{Binding Title}" 
+        MinHeight="500" MinWidth="800">
+    <Grid>
+        <!-- here the content of the plugin -->
+        <Border x:Name="pluginsContent" Grid.Row="0" Margin="1.5" BorderThickness="1" BorderBrush="OrangeRed" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+            <Border x:Name="pluginsContent2" Grid.Row="0" Margin="1.5" BorderThickness="1" BorderBrush="Blue" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                <ContentPresenter  x:Name="contentContainer" Content="{Binding ViewModel}"/>
+            </Border>
+        </Border>
+    </Grid>
+</Window>

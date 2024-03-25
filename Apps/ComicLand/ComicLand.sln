@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34714.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tucodev.WPF.ComicLand.Launcher", "tucodev.WPF.ComicLand.Launcher\tucodev.WPF.ComicLand.Launcher.csproj", "{A006653D-9E94-439A-AC3C-3D116A710C23}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tucodev.WPF.Core", "..\..\tucodev.WPF.Core\tucodev.WPF.Core.csproj", "{74E8B8FB-3432-4FDF-8194-2EF765E5B4CC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A006653D-9E94-439A-AC3C-3D116A710C23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A006653D-9E94-439A-AC3C-3D116A710C23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A006653D-9E94-439A-AC3C-3D116A710C23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A006653D-9E94-439A-AC3C-3D116A710C23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74E8B8FB-3432-4FDF-8194-2EF765E5B4CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74E8B8FB-3432-4FDF-8194-2EF765E5B4CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74E8B8FB-3432-4FDF-8194-2EF765E5B4CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74E8B8FB-3432-4FDF-8194-2EF765E5B4CC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A2F0E44C-261A-427E-9A40-C97B3CD58D8E}
+	EndGlobalSection
+EndGlobal
