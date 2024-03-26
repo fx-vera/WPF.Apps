@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace tucodev.WPF.Core
+namespace Tucodev.WPF.Core
 {
     public class DI
     {

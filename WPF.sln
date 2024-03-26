@@ -3,13 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tucodev.WPF.Core", "Tucodev.WPF.Core\Tucodev.WPF.Core.csproj", "{D1AE6441-C426-460A-8A93-1A1AEB4A7BA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tucodev.WPF.Core", "Tucodev.WPF.Core\Tucodev.WPF.Core.csproj", "{D1AE6441-C426-460A-8A93-1A1AEB4A7BA9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{7C29191D-9C91-4A24-9D5A-258BCB31B201}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tucodev.Core", "..\Core\tucodev.Core\tucodev.Core.csproj", "{DCAC5DB1-0D3E-4B73-9348-4CF1606BE921}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tucodev.WPF.Launcher", "Tucodev.WPF.Launcher\Tucodev.WPF.Launcher.csproj", "{FC1A7013-9E6A-4242-8136-B4D97AAFE7DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tucodev.WPF.Launcher", "Tucodev.WPF.Launcher\Tucodev.WPF.Launcher.csproj", "{FC1A7013-9E6A-4242-8136-B4D97AAFE7DC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9390CF81-A042-431F-802E-3663F3F25AA5}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

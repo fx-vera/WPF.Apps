@@ -1,14 +1,13 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Windows;
-using tucodev.Core.Mainframe;
+using Microsoft.Extensions.DependencyInjection;
 using Tucodev.Core.Interfaces;
-using Tucodev.Core.Models;
+using Tucodev.Core.Mainframe;
 using MessageBox = System.Windows.MessageBox;
 
-namespace tucodev.WPF.Core
+namespace Tucodev.WPF.Core
 {
     /// <summary>
     /// Base class to manage the basic application operations and the main window.
@@ -19,7 +18,7 @@ namespace tucodev.WPF.Core
         NotifyIcon notifyIcon;
         IServiceProvider serviceProvider;
         IServiceCollection serviceCollection;
-        IMainWindowViewModel mainViewModel;
+        IMainFrameViewModel mainViewModel;
 
         /// <summary>
         /// Contructor called by Application.
@@ -74,13 +73,13 @@ namespace tucodev.WPF.Core
                 Current.Shutdown();
                 return;
             }
-            mainViewModel = serviceProvider.GetRequiredService<IMainWindowViewModel>();
+            mainViewModel = serviceProvider.GetRequiredService<IMainFrameViewModel>();
 
             RegisterMainFrame();
 
             SetDataContextToMainWindow(mainViewModel);
 
-            serviceProvider.GetRequiredService<IViewsManager>()?.LoadAvailableViews();
+            serviceProvider.GetRequiredService<IPageManager>()?.LoadAvailableViews();
 
             if (!IsNotifiyIconMode)
             {
@@ -116,9 +115,9 @@ namespace tucodev.WPF.Core
         /// Can be overrided.
         /// </summary>
         /// <returns></returns>
-        private void SetDataContextToMainWindow(IMainWindowViewModel mainViewModel)
+        private void SetDataContextToMainWindow(IMainFrameViewModel mainViewModel)
         {
-            if (MainWindow is IMainWindow)
+            if (MainWindow is IMainFrame)
             {
                 //((IMainWindow)MainWindow).SetDataContext(mainViewModel);
                 MainWindow.DataContext = mainViewModel;
@@ -168,7 +167,7 @@ namespace tucodev.WPF.Core
             else
             {
                 LoadPlugins();
-                ((IMainWindowViewModel)MainWindow.DataContext).SetSelectedPlugin();
+                ((IMainFrameViewModel)MainWindow.DataContext).DisplaySelectedPlugin(((IMainFrameViewModel)MainWindow.DataContext).Plugins.FirstOrDefault()?.Id);
                 MainWindow.Show();
             }
         }
@@ -180,33 +179,26 @@ namespace tucodev.WPF.Core
 
         private void LoadPlugins()
         {
-            LoadPluginEventArgs args;
-            var pluginItems = serviceProvider.GetServices<IPluginItem>();
+            var pluginItems = serviceProvider.GetServices<IPluginItemBase>();
 
             foreach (var item in pluginItems)
             {
-                args = new LoadPluginEventArgs
-                {
-                    Id = item.Id,
-                    Item = item,
-                    IsCommand = true
-                };
-                mainViewModel.SetPlugins(args);
+                mainViewModel.LoadPlugin(item.Id, item.Name, item.Command);
             }
         }
 
         public virtual void RegisterDependencies(IServiceCollection services, IEnumerable<Assembly> assembliesToLoad)
         {
-            LoadType(assembliesToLoad, typeof(IPluginItem), services);
+            LoadType(assembliesToLoad, typeof(IPluginItemBase), services);
             LoadType(assembliesToLoad, typeof(IPageManager), services);
-            LoadType(assembliesToLoad, typeof(IViewsManager), services);
             LoadType(assembliesToLoad, typeof(IVVMMappingBase), services);
-            LoadType(assembliesToLoad, typeof(IMainWindow), services);
+            LoadType(assembliesToLoad, typeof(IMainFrame), services);
+            LoadType(assembliesToLoad, typeof(IMainFrame), services);
         }
 
         public void RegisterMainFrame()
         {
-            if (MainWindow == null && serviceProvider.GetRequiredService<IMainWindow>() is Window window)
+            if (MainWindow == null && serviceProvider.GetRequiredService<IMainFrame>() is Window window)
             {
                 MainWindow = window;
             }
@@ -219,7 +211,7 @@ namespace tucodev.WPF.Core
 
         public virtual void RegisterMainWindowViewModel(IServiceCollection services)
         {
-            services.AddSingleton<IMainWindowViewModel, MainWindowViewModel>();
+            services.AddSingleton<IMainFrameViewModel, MainFrameViewModel>();
         }
 
         private void LoadType(IEnumerable<Assembly> distinctAssemblies, Type myType, IServiceCollection services)

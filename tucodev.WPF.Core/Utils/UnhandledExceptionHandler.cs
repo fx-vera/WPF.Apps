@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Windows;
 
-namespace tucodev.WPF.Core.Utils
+namespace Tucodev.WPF.Core.Utils
 {
     /// <summary>
     /// Catch exception unhandled avoiding the crash.

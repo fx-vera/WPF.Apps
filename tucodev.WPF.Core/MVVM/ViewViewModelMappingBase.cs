@@ -1,8 +1,8 @@
 ﻿//using System.Composition;
-using Tucodev.Core.Interfaces;
-using Tucodev.Core.Models;
+using Tucodev.CoreInterfaces;
+using Tucodev.CoreModels;
 
-namespace tucodev.WPF.Core.Interfaces.MVVM
+namespace Tucodev.WPF.Core.Interfaces.MVVM
 {
     /// <summary>
     /// Base class used to register in the global application dictionary a mapping between 

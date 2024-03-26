@@ -1,27 +1,24 @@
-﻿using Tucodev.Core.Interfaces;
-using tucodev.WPF.Core.Utils;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Tucodev.Core.Interfaces;
 using Tucodev.Core.MVVM;
-using tucodev.WPF.Core;
-using Microsoft.Extensions.DependencyInjection;
-using System.ComponentModel.Composition;
+using Tucodev.WPF.Core.Utils;
 
 namespace tucodev.WPF.Launcher.Test
 {
-    [Export(typeof(IPluginItem))]
     public class PluginItem : PluginItemBase
     {
-        IServiceProvider _services;
+        IServiceProvider serviceProvider;
         public PluginItem(IServiceProvider services)
         {
             Id = "{4D36ABEE-72EA-4B3C-AA37-22A3D0CA613D}";
             Name = "Marvel Comics";
             Command = this.MenuItemCommand(this, new Func<ViewModelBase>(() => { return new DisplayerViewModel(); }));
-            _services = services ?? throw new ArgumentNullException(nameof(services));
+            serviceProvider = services ?? throw new ArgumentNullException(nameof(services));
         }
 
         public RelayCommand MenuItemCommand(PluginItemBase menuItem, Func<ViewModelBase> pageCreator)
         {
-            return new RelayCommand(param => OnCommand(menuItem, pageCreator()), null);
+            return new RelayCommand(param => OnCommand(menuItem, pageCreator()));
         }
 
         /// <summary>
@@ -33,12 +30,11 @@ namespace tucodev.WPF.Launcher.Test
         private void OnCommand(PluginItemBase menuItem, ViewModelBase page)
         {
             page.Id = menuItem.Id;
-            var pm = _services.GetRequiredService<IPageManager>();
+            var pm = serviceProvider.GetRequiredService<IPageManager>();
             pm.SetPageInMainWindow(page);
         }
     }
 
-    [Export(typeof(IPluginItem))]
     public class PluginItem2 : PluginItemBase
     {
         IServiceProvider _services;
@@ -52,7 +48,7 @@ namespace tucodev.WPF.Launcher.Test
 
         public RelayCommand MenuItemCommand(PluginItemBase menuItem, Func<ViewModelBase> pageCreator)
         {
-            return new RelayCommand(param => OnCommand(menuItem, pageCreator()), null);
+            return new RelayCommand(param => OnCommand(menuItem, pageCreator()));
         }
 
         /// <summary>
@@ -69,9 +65,7 @@ namespace tucodev.WPF.Launcher.Test
         }
     }
 
-    [Export(typeof(IVVMMappingBase))]
     public class PluginItemViewMapping : ViewViewModelMappingBase<DisplayerViewModel, DisplayerView> { }
 
-    [Export(typeof(IVVMMappingBase))]
     public class PluginItem2ViewMapping : ViewViewModelMappingBase<DisplayerViewModel, DisplayerView> { }
 }

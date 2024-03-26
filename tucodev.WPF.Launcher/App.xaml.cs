@@ -1,6 +1,4 @@
-﻿using System.Windows;
-using tucodev.WPF.Core;
-using Tucodev.Core.Interfaces;
+﻿using Tucodev.WPF.Core;
 
 namespace Tucodev.WPF.Launcher
 {
@@ -13,7 +11,5 @@ namespace Tucodev.WPF.Launcher
         protected override bool IsNotifiyIconMode { get { return false; } }
         //protected override Icon NotifyIconIcon { get { return Launcher.Properties.Resources.acaptain; } }
         protected override string NotifyIconTitle { get { return "Enjoy the app!"; } }
-
-
     }
 }
