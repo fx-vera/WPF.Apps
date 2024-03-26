@@ -10,11 +10,13 @@ namespace tucodev.WPF.Launcher.Test
     [Export(typeof(IPluginItem))]
     public class PluginItem : PluginItemBase
     {
-        public PluginItem()
+        IServiceProvider _services;
+        public PluginItem(IServiceProvider services)
         {
             Id = "{4D36ABEE-72EA-4B3C-AA37-22A3D0CA613D}";
             Name = "Marvel Comics";
             Command = this.MenuItemCommand(this, new Func<ViewModelBase>(() => { return new DisplayerViewModel(); }));
+            _services = services ?? throw new ArgumentNullException(nameof(services));
         }
 
         public RelayCommand MenuItemCommand(PluginItemBase menuItem, Func<ViewModelBase> pageCreator)
@@ -31,7 +33,7 @@ namespace tucodev.WPF.Launcher.Test
         private void OnCommand(PluginItemBase menuItem, ViewModelBase page)
         {
             page.Id = menuItem.Id;
-            var pm = DI.ServiceProvider.GetRequiredService<IPageManager>();
+            var pm = _services.GetRequiredService<IPageManager>();
             pm.SetPageInMainWindow(page);
         }
     }
@@ -39,8 +41,10 @@ namespace tucodev.WPF.Launcher.Test
     [Export(typeof(IPluginItem))]
     public class PluginItem2 : PluginItemBase
     {
-        public PluginItem2()
+        IServiceProvider _services;
+        public PluginItem2(IServiceProvider services)
         {
+            _services = services ?? throw new ArgumentNullException(nameof(services));
             Id = "{4D36ABEE-72EA-4B3C-AA37-22A3D0CA61FF}";
             Name = "Marvel Comics 2";
             Command = this.MenuItemCommand(this, new Func<ViewModelBase>(() => { return new DisplayerViewModel(); }));
@@ -60,8 +64,14 @@ namespace tucodev.WPF.Launcher.Test
         private void OnCommand(PluginItemBase menuItem, ViewModelBase page)
         {
             page.Id = menuItem.Id;
-            var pm = DI.ServiceProvider.GetRequiredService<IPageManager>();
+            var pm = _services.GetRequiredService<IPageManager>();
             pm.SetPageInMainWindow(page);
         }
     }
+
+    [Export(typeof(IVVMMappingBase))]
+    public class PluginItemViewMapping : ViewViewModelMappingBase<DisplayerViewModel, DisplayerView> { }
+
+    [Export(typeof(IVVMMappingBase))]
+    public class PluginItem2ViewMapping : ViewViewModelMappingBase<DisplayerViewModel, DisplayerView> { }
 }

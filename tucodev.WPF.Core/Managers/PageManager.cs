@@ -1,16 +1,17 @@
-﻿using Tucodev.Core.Interfaces;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Tucodev.Core.Interfaces;
 
 namespace tucodev.WPF.Core.Interfaces.Managers
 {
-    //[Export(typeof(IPageManager))]
-    public abstract class PageManager : Tucodev.Core.Managers.PageManager
+    public class PageManager : Tucodev.Core.Managers.PageManager, IPageManager
     {
+        IServiceProvider _services;
         /// <summary>
         /// Initializes a new instance of the <see cref="PageManager"/> class.
         /// </summary>
-        //[ImportingConstructor]
-        public PageManager()
+        public PageManager(IServiceProvider services)
         {
+            _services = services ?? throw new ArgumentNullException(nameof(services));
         }
 
         #region IPageManager functions
@@ -21,19 +22,14 @@ namespace tucodev.WPF.Core.Interfaces.Managers
             {
                 return null;
             }
-            IWindowViewModel openedInstance = null;
 
-            //var mainframe = IoC.Get<IMainWindowViewModel>();
-            //openedInstance = CreateNewWindow(newPage);
-            //mainframe.ViewModel = openedInstance.ViewModel;
+            var mainframe = _services.GetRequiredService<IMainWindowViewModel>();
+
+            IWindowViewModel openedInstance = CreateNewWindow(newPage);
+            mainframe.ViewModel = openedInstance.ViewModel;
             return openedInstance;
         }
 
         #endregion
-
-        //public IWindowViewModel CreateNewWindow(IViewModel newPage)
-        //{
-        //    return new GenericViewModel(newPage);
-        //}
     }
 }

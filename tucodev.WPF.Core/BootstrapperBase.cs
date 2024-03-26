@@ -4,7 +4,6 @@ using System.Reflection;
 using System.Text;
 using System.Windows;
 using tucodev.Core.Mainframe;
-using tucodev.WPF.Core.Mainframe;
 using Tucodev.Core.Interfaces;
 using Tucodev.Core.Models;
 using MessageBox = System.Windows.MessageBox;
@@ -18,6 +17,9 @@ namespace tucodev.WPF.Core
     public abstract class BootstrapperBase : System.Windows.Application, IBootstrapperBase
     {
         NotifyIcon notifyIcon;
+        IServiceProvider serviceProvider;
+        IServiceCollection serviceCollection;
+        IMainWindowViewModel mainViewModel;
 
         /// <summary>
         /// Contructor called by Application.
@@ -33,7 +35,13 @@ namespace tucodev.WPF.Core
         protected virtual string NotifyIconTitle { get; }
         protected virtual Icon NotifyIconIcon { get; }
 
-        IMainWindowViewModel mainViewModel;
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            RegisterCustomMainFrame();
+            base.OnStartup(e);
+            OnStartup();
+        }
 
         public void OnStartup()
         {
@@ -47,11 +55,10 @@ namespace tucodev.WPF.Core
 
             try
             {
-                var serviceCollection = new ServiceCollection();
-                RegisterMainFrame(serviceCollection);
-                RegisterMainWindow(serviceCollection);
+                serviceCollection = new ServiceCollection();
+                RegisterMainWindowViewModel(serviceCollection);
                 RegisterDependencies(serviceCollection, assembliesToCompose);
-                DI.PublicServices(serviceCollection);
+                serviceProvider = serviceCollection.BuildServiceProvider();
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
                 modulesLoadedOk = true;
@@ -67,8 +74,13 @@ namespace tucodev.WPF.Core
                 Current.Shutdown();
                 return;
             }
+            mainViewModel = serviceProvider.GetRequiredService<IMainWindowViewModel>();
 
-            LoadApplicationViews();
+            RegisterMainFrame();
+
+            SetDataContextToMainWindow(mainViewModel);
+
+            serviceProvider.GetRequiredService<IViewsManager>()?.LoadAvailableViews();
 
             if (!IsNotifiyIconMode)
             {
@@ -99,31 +111,19 @@ namespace tucodev.WPF.Core
             Utils.UnhandledExceptionHandler.Init();
         }
 
-        protected sealed override void OnStartup(StartupEventArgs e)
-        {
-            base.OnStartup(e);
-            OnStartup();
-        }
-
         /// <summary>
         /// Function called to create the main application window.
         /// Can be overrided.
         /// </summary>
         /// <returns></returns>
-        protected virtual Window CreateMainWindow()
+        private void SetDataContextToMainWindow(IMainWindowViewModel mainViewModel)
         {
-            Window mainWindow = null;
-            mainViewModel = DI.ServiceProvider.GetRequiredService<IMainWindowViewModel>();
-
-            var mainw = DI.ServiceProvider.GetRequiredService<IMainWindow>();
-            if (mainw is Window)
+            if (MainWindow is IMainWindow)
             {
-                mainw.SetDataContext(mainViewModel);
-                mainWindow = (Window)mainw;
-                mainWindow.Dispatcher.BeginInvoke(new Action(() => mainWindow.SetCurrentValue(Window.TopmostProperty, false)), System.Windows.Threading.DispatcherPriority.ApplicationIdle, null);
+                //((IMainWindow)MainWindow).SetDataContext(mainViewModel);
+                MainWindow.DataContext = mainViewModel;
+                MainWindow.Dispatcher.BeginInvoke(new Action(() => MainWindow.SetCurrentValue(Window.TopmostProperty, false)), System.Windows.Threading.DispatcherPriority.ApplicationIdle, null);
             }
-
-            return mainWindow;
         }
 
         #region Private
@@ -159,14 +159,8 @@ namespace tucodev.WPF.Core
             return possiblePlugins;
         }
 
-        private void LoadApplicationViews()
-        {
-            DI.ServiceProvider.GetService<IViewsManager>()?.LoadAvailableViews();
-        }
-
         private void Open_Click(object sender, EventArgs e)
         {
-            MainWindow = CreateMainWindow();
             if (MainWindow == null)
             {
                 MessageBox.Show("Error", "Error creating the MainWindow for the Application Modules in Applivery.MarvelComics.Desktop.");
@@ -187,7 +181,7 @@ namespace tucodev.WPF.Core
         private void LoadPlugins()
         {
             LoadPluginEventArgs args;
-            var pluginItems = DI.ServiceProvider.GetServices<IPluginItem>();
+            var pluginItems = serviceProvider.GetServices<IPluginItem>();
 
             foreach (var item in pluginItems)
             {
@@ -203,30 +197,29 @@ namespace tucodev.WPF.Core
 
         public virtual void RegisterDependencies(IServiceCollection services, IEnumerable<Assembly> assembliesToLoad)
         {
-            LoadModules(assembliesToLoad, services);
-        }
-
-        public virtual void RegisterMainFrame(IServiceCollection services)
-        {
-            services.AddScoped<IMainWindow, MainFrame>();
-        }
-
-        public virtual void RegisterMainWindow(IServiceCollection services)
-        {
-            services.AddScoped<IMainWindowViewModel, MainWindowViewModel>();
-        }
-
-        /// <summary>
-        /// Tries to do the MEF composition of all assemblies and preloaded objects.
-        /// Throws a ModuleLoadErrorException if the composition fails
-        /// </summary>
-        /// <param name="preloadedObjects"></param>
-        /// <param name="assembliesToLoad"></param>
-        private void LoadModules(IEnumerable<Assembly> assembliesToLoad, IServiceCollection services)
-        {
             LoadType(assembliesToLoad, typeof(IPluginItem), services);
             LoadType(assembliesToLoad, typeof(IPageManager), services);
             LoadType(assembliesToLoad, typeof(IViewsManager), services);
+            LoadType(assembliesToLoad, typeof(IVVMMappingBase), services);
+            LoadType(assembliesToLoad, typeof(IMainWindow), services);
+        }
+
+        public void RegisterMainFrame()
+        {
+            if (MainWindow == null && serviceProvider.GetRequiredService<IMainWindow>() is Window window)
+            {
+                MainWindow = window;
+            }
+        }
+
+        public virtual void RegisterCustomMainFrame()
+        {
+
+        }
+
+        public virtual void RegisterMainWindowViewModel(IServiceCollection services)
+        {
+            services.AddSingleton<IMainWindowViewModel, MainWindowViewModel>();
         }
 
         private void LoadType(IEnumerable<Assembly> distinctAssemblies, Type myType, IServiceCollection services)
@@ -248,7 +241,7 @@ namespace tucodev.WPF.Core
                 foreach (var typeInstance in typeInstances)
                 {
                     // this is the wireup that allows you to DI your instances
-                    services.AddScoped(myType, typeInstance);
+                    services.AddSingleton(myType, typeInstance);
                 }
             }
         }

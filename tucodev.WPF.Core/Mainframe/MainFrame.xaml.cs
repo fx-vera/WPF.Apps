@@ -13,9 +13,9 @@ namespace tucodev.WPF.Core.Mainframe
             InitializeComponent();
         }
 
-        public void SetDataContext(IMainWindowViewModel viewModel)
-        {
-            this.DataContext = viewModel;
-        }
+        //public void SetDataContext(IMainWindowViewModel viewModel)
+        //{
+        //    this.DataContext = viewModel;
+        //}
     }
 }

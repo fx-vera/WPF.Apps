@@ -1,9 +1,8 @@
-﻿<core:BootstrapperBase x:Class="tucodev.WPF.Launcher.App"
+﻿<core:BootstrapperBase x:Class="Tucodev.WPF.Launcher.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:core="clr-namespace:tucodev.WPF.Core;assembly=tucodev.WPF.Core"
-             >
+             xmlns:core="clr-namespace:tucodev.WPF.Core;assembly=tucodev.WPF.Core">
     <Application.Resources>
-         
+        
     </Application.Resources>
 </core:BootstrapperBase>

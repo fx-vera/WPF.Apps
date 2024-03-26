@@ -1,9 +1,8 @@
-﻿<Application x:Class="tucodev.WPF.ComicLand.Launcher.App"
+﻿<core:BootstrapperBase x:Class="tucodev.WPF.ComicLand.Launcher.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:tucodev.WPF.ComicLand.Launcher"
-             StartupUri="MainWindow.xaml">
+             xmlns:core="clr-namespace:tucodev.WPF.Core;assembly=tucodev.WPF.Core">
     <Application.Resources>
          
     </Application.Resources>
-</Application>
+</core:BootstrapperBase>

@@ -7,6 +7,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
+        <!-- here the content of the plugin -->
+        <Border x:Name="pluginsContent" Grid.Row="0" Margin="1.5" BorderThickness="1" BorderBrush="OrangeRed" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+            <Border x:Name="pluginsContent2" Grid.Row="0" Margin="1.5" BorderThickness="1" BorderBrush="Blue" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                <ContentPresenter  x:Name="contentContainer" Content="{Binding ViewModel}"/>
+            </Border>
+        </Border>
     </Grid>
 </Window>

@@ -3,7 +3,6 @@ using System.Text;
 using System.Windows;
 using System.Windows.Markup;
 using System.Xml;
-using tucodev.WPF.Core.Interfaces.MVVM;
 using Tucodev.Core.Interfaces;
 using Application = System.Windows.Application;
 
@@ -12,15 +11,13 @@ namespace tucodev.WPF.Core.Managers
     /// <summary>
     /// ViewsManager
     /// </summary>
-    //[System.ComponentModel.Composition.Export(typeof(IViewsManager))]
     public class ViewsManager : IViewsManager
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewsManager"/> class.
         /// </summary>
         /// <param name="views">The views.</param>
-        //[System.ComponentModel.Composition.ImportingConstructor]
-        public ViewsManager(/*[System.ComponentModel.Composition.ImportMany]*/ IEnumerable<IVVMMappingBase> views)
+        public ViewsManager([System.ComponentModel.Composition.ImportMany] IEnumerable<IVVMMappingBase> views)
         {
             _availableViews.AddRange(views);
         }
@@ -44,28 +41,6 @@ namespace tucodev.WPF.Core.Managers
         public void LoadAvailableViews()
         {
             AvailableViews.ForEach(v => RegisterView(v, false));
-
-            // ahora me ahorro el [Export] de Pages
-            foreach (var view in AvailableViews)
-            {
-                foreach (var mapping in view.Mappings)
-                {
-                    //tucodev.WPF.Core.Interfaces.Managers.IoC.SetInstance(typeof(UserControl), mapping.View.Name);
-                }
-            }
-
-            //MEFIoCManager.Instance.ComposeParts();
-        }
-
-        /// <summary>
-        /// Registers the view.
-        /// </summary>
-        /// <param name="viewModel">The view model.</param>
-        /// <param name="view">The view.</param>
-        public void RegisterView(Type viewModel, Type view)
-        {
-            ViewViewModelMappingBase bv = new ViewViewModelMappingBase(viewModel, view);
-            RegisterView(bv, true);
         }
 
         private void RegisterView(IVVMMappingBase view, bool addToAvailable)

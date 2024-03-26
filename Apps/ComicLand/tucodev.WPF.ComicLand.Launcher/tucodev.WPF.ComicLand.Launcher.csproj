@@ -8,4 +8,10 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\tucodev.Core\tucodev.Core.csproj" />
+    <ProjectReference Include="..\..\..\tucodev.WPF.Core\tucodev.WPF.Core.csproj" />
+    <ProjectReference Include="..\Plugins\Marvel\Tucodev.ComicLand.Marvel.ViewModels\Tucodev.ComicLand.Marvel.ViewModels.csproj" />
+  </ItemGroup>
+
 </Project>

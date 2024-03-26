@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\Core\tucodev.Core\tucodev.Core.csproj" />
+    <ProjectReference Include="..\..\..\..\..\tucodev.WPF.Core\tucodev.WPF.Core.csproj" />
+    <ProjectReference Include="..\Tucodev.ComicLand.Marvel.Logic\Tucodev.ComicLand.Marvel.Logic.csproj" />
+    <ProjectReference Include="..\Tucodev.ComicLand.Marvel.Models\Tucodev.ComicLand.Marvel.Models.csproj" />
+    <ProjectReference Include="..\Tucodev.ComicLand.Marvel.Views\Tucodev.ComicLand.Marvel.Views.csproj" />
+  </ItemGroup>
+
+</Project>

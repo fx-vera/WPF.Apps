@@ -9,26 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Page Include="App.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Core\tucodev.Core\tucodev.Core.csproj" />
-    <ProjectReference Include="..\tucodev.WPF.Core\tucodev.WPF.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="MainFrame.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <ProjectReference Include="..\Tucodev.WPF.Core\Tucodev.WPF.Core.csproj" />
   </ItemGroup>
 
 </Project>
