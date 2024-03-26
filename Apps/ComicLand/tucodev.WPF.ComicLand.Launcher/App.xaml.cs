@@ -1,4 +1,4 @@
-﻿using tucodev.WPF.Core;
+﻿using Tucodev.WPF.Core;
 
 namespace tucodev.WPF.ComicLand.Launcher
 {
@@ -14,10 +14,8 @@ namespace tucodev.WPF.ComicLand.Launcher
 
         public override void RegisterCustomMainFrame()
         {
-            //base.RegisterMainFrame();
-
             // para que funcione la custom, la Window tiene que crearse antes del base.onstartup();
-            //MainWindow = new MainWindow();// DI.ServiceProvider.GetRequiredService<IMainWindow>();
+            MainWindow = new MainWindow();// DI.ServiceProvider.GetRequiredService<IMainWindow>();
         }
     }
 }

@@ -1,8 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System.ComponentModel.Composition;
-using tucodev.WPF.Core.Utils;
 using Tucodev.Core.Interfaces;
 using Tucodev.Core.MVVM;
+using Tucodev.WPF.Core.Utils;
 using Yolo.Soft.Plugins.Marvel.Views;
 
 namespace Tucodev.ComicLand.Marvel.ViewModels
