@@ -8,12 +8,20 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <SignAssembly>False</SignAssembly>
+    <SignAssembly>True</SignAssembly>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageProjectUrl>https://github.com/fx-vera/tucodev-WPF</PackageProjectUrl>
+    <Copyright>2024 fx-vera (tucodev)</Copyright>
+    <Description>Library to help in the build of a WPF application.</Description>
+    <Title>Tucodev.WPF.Core</Title>
+    <AssemblyOriginatorKeyFile>Tucodev.WPF.Core.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>False</DelaySign>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Managers\DI.cs" />
-    <Compile Remove="MVVM\ViewViewModelMappingBase.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,7 +31,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="MVVM\" />
+    <None Include="..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
