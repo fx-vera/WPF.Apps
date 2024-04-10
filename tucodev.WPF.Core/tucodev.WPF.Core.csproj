@@ -12,12 +12,16 @@
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageProjectUrl>https://github.com/fx-vera/tucodev-WPF</PackageProjectUrl>
-    <Copyright>2024 fx-vera (tucodev)</Copyright>
+    <PackageProjectUrl></PackageProjectUrl>
+    <Copyright>2024 fxvera (tucodev)</Copyright>
     <Description>Library to help in the build of a WPF application.</Description>
-    <Title>Tucodev.WPF.Core</Title>
+    <Title>tucodev.WPF.Core</Title>
     <AssemblyOriginatorKeyFile>Tucodev.WPF.Core.snk</AssemblyOriginatorKeyFile>
     <DelaySign>False</DelaySign>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Authors>$(AssemblyName),fxvera</Authors>
+    <PackageTags>wpf, core, tucodev, fxvera</PackageTags>
+    <PackageId>tucodev.WPF.Core</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,6 +32,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
     <PackageReference Include="System.ComponentModel.Composition" Version="8.0.0" />
+    <PackageReference Include="tucodev.Core" Version="1.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,10 +44,6 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Core\tucodev.Core\tucodev.Core.csproj" />
   </ItemGroup>
 
 </Project>

@@ -5,10 +5,6 @@ VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tucodev.WPF.Core", "Tucodev.WPF.Core\Tucodev.WPF.Core.csproj", "{D1AE6441-C426-460A-8A93-1A1AEB4A7BA9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{7C29191D-9C91-4A24-9D5A-258BCB31B201}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tucodev.Core", "..\Core\tucodev.Core\tucodev.Core.csproj", "{DCAC5DB1-0D3E-4B73-9348-4CF1606BE921}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tucodev.WPF.Launcher", "Tucodev.WPF.Launcher\Tucodev.WPF.Launcher.csproj", "{FC1A7013-9E6A-4242-8136-B4D97AAFE7DC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9390CF81-A042-431F-802E-3663F3F25AA5}"
@@ -32,14 +28,6 @@ Global
 		{D1AE6441-C426-460A-8A93-1A1AEB4A7BA9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D1AE6441-C426-460A-8A93-1A1AEB4A7BA9}.Release|x64.ActiveCfg = Release|Any CPU
 		{D1AE6441-C426-460A-8A93-1A1AEB4A7BA9}.Release|x64.Build.0 = Release|Any CPU
-		{DCAC5DB1-0D3E-4B73-9348-4CF1606BE921}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DCAC5DB1-0D3E-4B73-9348-4CF1606BE921}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DCAC5DB1-0D3E-4B73-9348-4CF1606BE921}.Debug|x64.ActiveCfg = Debug|x64
-		{DCAC5DB1-0D3E-4B73-9348-4CF1606BE921}.Debug|x64.Build.0 = Debug|x64
-		{DCAC5DB1-0D3E-4B73-9348-4CF1606BE921}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DCAC5DB1-0D3E-4B73-9348-4CF1606BE921}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DCAC5DB1-0D3E-4B73-9348-4CF1606BE921}.Release|x64.ActiveCfg = Release|x64
-		{DCAC5DB1-0D3E-4B73-9348-4CF1606BE921}.Release|x64.Build.0 = Release|x64
 		{FC1A7013-9E6A-4242-8136-B4D97AAFE7DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FC1A7013-9E6A-4242-8136-B4D97AAFE7DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC1A7013-9E6A-4242-8136-B4D97AAFE7DC}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -51,9 +39,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{DCAC5DB1-0D3E-4B73-9348-4CF1606BE921} = {7C29191D-9C91-4A24-9D5A-258BCB31B201}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {229744AA-CC68-4F97-ADF0-FB91D2192ABA}

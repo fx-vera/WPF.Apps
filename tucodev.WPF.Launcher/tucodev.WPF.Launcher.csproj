@@ -9,11 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="tucodev.Core" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Page Include="App.xaml" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\tucodev.Core\Tucodev.Core.csproj" />
     <ProjectReference Include="..\Tucodev.WPF.Core\Tucodev.WPF.Core.csproj" />
   </ItemGroup>
 
