@@ -20,8 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\tucodev.Core\tucodev.Core.csproj" />
-    <ProjectReference Include="..\..\..\tucodev.WPF.Core\tucodev.WPF.Core.csproj" />
+    <PackageReference Include="tucodev.WPF.Core" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Plugins\Marvel\Tucodev.ComicLand.Marvel.ViewModels\Tucodev.ComicLand.Marvel.ViewModels.csproj" />
   </ItemGroup>
 
