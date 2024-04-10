@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace tucodev.WPF.Core.Utils
+namespace Tucodev.WPF.Core.Utils
 {
     /// <summary>
     /// RelayCommand implementation taken from 
@@ -13,11 +13,11 @@ namespace tucodev.WPF.Core.Utils
         readonly Action<object> _execute;
         readonly Predicate<object> _canExecute;
 
-        #endregion // Fields
+        #endregion Fields
 
         #region Constructors
 
-        public RelayCommand(Action<object> execute) : this(execute, null)
+        public RelayCommand(Action<object> execute) : this(execute, (object res) => { return true; })
         {
         }
 
@@ -29,7 +29,7 @@ namespace tucodev.WPF.Core.Utils
             _execute = execute;
             _canExecute = canExecute;
         }
-        #endregion // Constructors
+        #endregion Constructors
 
         #region ICommand Members
 
@@ -56,6 +56,6 @@ namespace tucodev.WPF.Core.Utils
             _execute(parameter);
         }
 
-        #endregion // ICommand Members
+        #endregion ICommand Members
     }
 }

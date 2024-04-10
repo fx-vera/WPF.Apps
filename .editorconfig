@@ -1,0 +1,13 @@
+﻿[*.cs]
+
+# CS8767: La nulabilidad de los tipos de referencia del tipo de parámetro no coincide con el miembro implementado de forma implícita (posiblemente debido a los atributos de nulabilidad).
+dotnet_diagnostic.CS8767.severity = silent
+
+# CS1591: Falta el comentario XML para el tipo o miembro visible públicamente
+dotnet_diagnostic.CS1591.severity = silent
+
+# CS8625: No se puede convertir un literal NULL en un tipo de referencia que no acepta valores NULL.
+dotnet_diagnostic.CS8625.severity = none
+
+# Default severity for all analyzer diagnostics
+dotnet_analyzer_diagnostic.severity = none
