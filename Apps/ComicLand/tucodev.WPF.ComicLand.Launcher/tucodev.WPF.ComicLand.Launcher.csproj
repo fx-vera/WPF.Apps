@@ -9,7 +9,7 @@
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>C:\Workspaces\tucodev\WPF\Apps\ComicLand\Tucodev.Apps.snk</AssemblyOriginatorKeyFile>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <Copyright>2024 fx-vera (tucodev)</Copyright>
+    <Copyright>2024 fxvera (tucodev)</Copyright>
   </PropertyGroup>
 
   <ItemGroup>

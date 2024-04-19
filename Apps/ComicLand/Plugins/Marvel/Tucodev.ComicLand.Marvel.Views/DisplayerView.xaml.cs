@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Yolo.Soft.Plugins.Marvel.Views;
+namespace Tucodev.ComicLand.Marvel.Views;
 
 /// <summary>
 /// Lógica de interacción para DisplayerView.xaml

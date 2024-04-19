@@ -83,6 +83,10 @@ namespace Tucodev.WPF.Core
 
             if (!IsNotifiyIconMode)
             {
+                if (MainWindow != null)
+                {
+                    MainWindow.Closed += (o, ee) => System.Windows.Application.Current.Shutdown();
+                }
                 Open_Click(null, null);
             }
             else
@@ -119,9 +123,12 @@ namespace Tucodev.WPF.Core
         {
             if (MainWindow is IMainFrame)
             {
-                //((IMainWindow)MainWindow).SetDataContext(mainViewModel);
                 MainWindow.DataContext = mainViewModel;
                 MainWindow.Dispatcher.BeginInvoke(new Action(() => MainWindow.SetCurrentValue(Window.TopmostProperty, false)), System.Windows.Threading.DispatcherPriority.ApplicationIdle, null);
+            }
+            else
+            {
+                System.Windows.Application.Current.Shutdown();
             }
         }
 
@@ -162,7 +169,8 @@ namespace Tucodev.WPF.Core
         {
             if (MainWindow == null)
             {
-                MessageBox.Show("Error", "Error creating the MainWindow for the Application Modules in Applivery.MarvelComics.Desktop.");
+                MessageBox.Show("Error", "Error creating the MainWindow for the Application " + NotifyIconTitle);
+                Current.Shutdown();
             }
             else
             {

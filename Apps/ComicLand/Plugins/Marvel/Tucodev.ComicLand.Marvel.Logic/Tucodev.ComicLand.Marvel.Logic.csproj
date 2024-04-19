@@ -10,7 +10,7 @@
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/fx-vera/tucodev-WPF/tree/master/Apps/ComicLand</RepositoryUrl>
-    <Copyright>2024 fx-vera (tucodev)</Copyright>
+    <Copyright>2024 fxvera (tucodev)</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
